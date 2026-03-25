@@ -30,7 +30,8 @@
   },
   {
     "src": "images/purple_spot.jpg",
-    "category": "logo",
+    "full": "images/purple_spot_modal.jpg",
+    "category": "branding",
     "alt": "Purple Spot logo design"
   },
   {
@@ -53,7 +54,7 @@
   {
     "src": "images/gn.jpg",
     "full": "images/gn_modal.jpg",
-    "category": "logo",
+    "category": "branding",
     "alt": "GN logo design"
   },
   {

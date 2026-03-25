@@ -63,6 +63,9 @@ portfolioGrid.addEventListener("click", (e) => {
         // Show modal
         modal.style.display = "block";
         modalImg.src = fullImg;
+
+        // Reset scroll to top each time modal opens
+        modal.scrollTop = 0;
     }
 });
 
