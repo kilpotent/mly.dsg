@@ -203,3 +203,17 @@ function burgerNav(category) {
     document.getElementById("burgerBtn").classList.remove("open");
     document.getElementById("burgerMenu").classList.remove("open");
 }
+
+// ================= AUTO-FILTER FROM URL PARAM =================
+
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const category = params.get("category");
+
+    if (category) {
+        // Wait for images to be fetched and rendered first
+        setTimeout(() => {
+            goToPortfolio(category);
+        }, 300);
+    }
+});

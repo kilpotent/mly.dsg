@@ -7,6 +7,10 @@
     box-sizing: border-box;
 }
 
+a{
+    text-decoration: none;
+}
+
 body {
     margin: 0;
     background: #9370DB;
@@ -38,6 +42,7 @@ body {
     gap: clamp(10px, 3vw, 60px);
     font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     margin-bottom: 10px;
+    text-decoration: none;
 }
 
 #about {
@@ -52,6 +57,7 @@ body {
     white-space: nowrap;
     text-decoration: none;
     color: white;
+    display: inline-block;
 }
 
 .menu-bar div::after,
@@ -312,6 +318,35 @@ body {
         height: auto;
         border-radius: 6px;
 }
+
+    /* About page - smaller body text */
+    .about-container {
+        font-size: 0.85rem;
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .about-container div {
+        line-height: 1.6;
+    }
+
+    /* Contact - phone & email on same row, socials below */
+    .contact {
+        flex-wrap: wrap;
+        gap: 16px;
+        padding: 0 20px;
+    }
+
+    .contact > div:nth-child(1),
+    .contact > div:nth-child(2) {
+        flex: 1 1 40%;
+        justify-content: center;
+    }
+
+    .contact > div:nth-child(3) {
+        flex: 1 1 100%;
+        justify-content: center;
+    }
 }
 
 /* ================= BURGER MENU (mobile only) ================= */
