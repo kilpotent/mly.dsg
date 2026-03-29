@@ -400,6 +400,12 @@ body {
         flex: 1 1 100%;
         justify-content: center;
     }
+
+/* =================MOBILE ABOUT TEXT NARROWER MARGINS ================= */
+
+    .about-container p {
+    margin: 0;
+}
 }
 
 /* ================= BURGER BUTTON (mobile only) ================= */
