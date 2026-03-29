@@ -3,24 +3,12 @@
     src: url(fonts/GARMOT-GARMOT-REGULAR-400.OTF) format("opentype");
 }
 
-/* ================= RESET & BASE ================= */
-
-*, *::before, *::after {
+* {
     box-sizing: border-box;
 }
 
-a {
+a{
     text-decoration: none;
-    color: inherit;
-}
-
-button {
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    color: inherit;
 }
 
 body {
@@ -40,18 +28,13 @@ body {
     position: relative;
 }
 
-/* Centre logo absolutely so it doesn't affect flex layout */
-.logo-link {
+.logo-img {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 50px;
-    line-height: 0; /* removes phantom inline gap */
-}
-
-.logo-img {
     width: clamp(60px, 13vw, 120px);
     height: auto;
+    margin-top: -30px;
 }
 
 .menu-bar {
@@ -59,22 +42,25 @@ body {
     gap: clamp(10px, 3vw, 60px);
     font-size: clamp(0.9rem, 1.8vw, 1.1rem);
     margin-bottom: 10px;
-    align-items: center;
+    text-decoration: none;
 }
 
 #about {
     gap: clamp(20px, 1.2vw, 60px);
 }
 
+.menu-bar div,
 .menu-bar a {
     position: relative;
     padding: 6px 4px;
+    cursor: pointer;
     white-space: nowrap;
+    text-decoration: none;
     color: white;
     display: inline-block;
 }
 
-/* Animated underline on hover / active */
+.menu-bar div::after,
 .menu-bar a::after {
     content: "";
     position: absolute;
@@ -83,28 +69,14 @@ body {
     width: 0%;
     height: 2px;
     background-color: white;
-    transition: width 0.3s ease, left 0.3s ease;
+    transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
+.menu-bar div:hover::after,
 .menu-bar a:hover::after,
-.menu-bar a.active::after {
+.menu-bar div.active::after {
     width: 100%;
-}
-
-/* Social icons sit inline without underline animation */
-.social-icon {
-    display: block;
-    color: white;
-    transition: opacity 0.2s ease;
-}
-
-.menu-bar a:has(.social-icon)::after {
-    display: none;
-}
-
-.menu-bar a:has(.social-icon):hover .social-icon {
-    opacity: 0.7;
 }
 
 /* ================= INTRO ================= */
@@ -123,28 +95,18 @@ body {
 .intro {
     font-size: clamp(2.5rem, 4vw, 3.5rem);
     text-align: center;
-    margin: 0;
-}
-
-.intro-sub {
-    margin: 0;
-    color: #E0E0E0;
 }
 
 .click-here {
     position: absolute;
-    bottom: 30vh;
+    margin-top: 60vh;
     text-align: center;
     color: #E0E0E0;
-    transition: color 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    transition: color 0.3s ease;
 }
 
-.click-here:hover {
-    color: white;
-    transform: translateY(4px);
-}
-
-/* ================= PORTFOLIO GRID ================= */
+/* ================= PORTFOLIO ================= */
 
 .portfolio-grid {
     display: grid;
@@ -176,7 +138,7 @@ body {
     position: fixed;
     z-index: 9999;
     inset: 0;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0,0,0,0.9);
     overflow-y: auto;
     padding: 60px 80px;
 }
@@ -185,36 +147,27 @@ body {
     display: block;
     margin: 0 auto;
     max-width: 85%;
+    object-fit: contain;
     height: auto;
     border-radius: 10px;
     animation: zoom 0.3s ease;
 }
 
 @keyframes zoom {
-    from { transform: scale(0.7); opacity: 0; }
-    to   { transform: scale(1);   opacity: 1; }
+    from { transform: scale(0.7); }
+    to   { transform: scale(1); }
 }
 
-/* Close button — now a <button> for proper accessibility */
 .close {
     position: absolute;
-    top: 20px;
-    right: 30px;
+    top: 30px;
+    right: 40px;
     font-size: 40px;
     color: white;
-    line-height: 1;
-    background: none;
-    border: none;
     cursor: pointer;
-    transition: opacity 0.2s ease;
-    padding: 4px 8px;
 }
 
-.close:hover {
-    opacity: 0.7;
-}
-
-/* ================= SCROLL TO TOP ================= */
+/* ================= SCROLL BUTTON ================= */
 
 #scrollTopBtn {
     position: fixed;
@@ -222,15 +175,15 @@ body {
     bottom: 25px;
     width: 52px;
     height: 52px;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255,255,255,0.15);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     backdrop-filter: blur(6px);
-    transition: opacity 0.3s ease, transform 0.3s ease, background 0.3s ease;
-    z-index: 9998;
+    transition: all 0.3s ease;
+    z-index: 99999;
     opacity: 0;
     pointer-events: none;
     transform: translateY(15px);
@@ -244,7 +197,11 @@ body {
 
 #scrollTopBtn:hover {
     transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.25);
+    background: rgba(255,255,255,0.25);
+}
+
+#scrollTopBtn svg {
+    color: white;
 }
 
 /* ================= ABOUT SECTION ================= */
@@ -257,7 +214,6 @@ body {
     font-size: clamp(1.8rem, 4vw, 2rem);
     font-weight: normal;
     margin-top: 10%;
-    margin-bottom: 0;
 }
 
 .about-section h2 {
@@ -266,7 +222,7 @@ body {
     margin-bottom: 30px;
     font-style: italic;
     font-weight: normal;
-    margin-top: 6px;
+    margin-top: -10px;
 }
 
 .about-container {
@@ -277,15 +233,7 @@ body {
     gap: 25px;
     color: #E0E0E0;
     font-size: 1.1rem;
-    padding: 0 20px;
 }
-
-.about-container p {
-    margin: 0 20%;
-    line-height: 1.7;
-}
-
-/* ================= CONTACT ================= */
 
 .icon {
     width: 100%;
@@ -298,50 +246,41 @@ body {
     justify-content: center;
     align-items: center;
     margin-top: 3%;
-    padding-bottom: 60px;
-    flex-wrap: wrap;
 }
 
 .contact > div {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
 }
 
-/* Make phone/email clickable & styled */
-.contact a {
-    color: #E0E0E0;
-    transition: color 0.2s ease;
-}
+/* ================= SOCIAL ICON ================= */
 
-.contact a:hover {
+.social-icon {
     color: white;
-    text-decoration: underline;
 }
 
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
-
-    /* Hide desktop nav bars; burger takes over */
-    .menu-container > nav.menu-bar {
-        display: none;
-    }
-
     .menu-container {
+        flex-direction: column;
         padding: 20px 15px;
-        justify-content: center;
+        gap: 10px;
     }
 
-    .logo-link {
-        position: static;
-        transform: none;
-        top: auto;
+    .menu-bar {
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-size: 0.9rem;
     }
 
     .logo-img {
         width: 70px;
         margin: 5px 0 10px;
+        position: static;
+        transform: none;
     }
 
     .intro {
@@ -357,7 +296,6 @@ body {
         border-radius: 6px;
     }
 
-    /* Disable scale hover on touch devices */
     .portfolio-grid img:hover {
         transform: none;
     }
@@ -368,26 +306,35 @@ body {
         right: 15px;
         bottom: 15px;
     }
-
+    
     .modal {
-        padding: 50px 10px 20px 10px;
+    padding: 50px 10px 20px 10px;
+    overflow-y: auto;
     }
 
     .modal-content {
         max-width: 100%;
         width: 100%;
+        height: auto;
         border-radius: 6px;
-    }
+}
 
+    /* About page - smaller body text */
     .about-container {
         font-size: 0.85rem;
+        padding: 0 20px;
         text-align: center;
     }
 
+    .about-container div {
+        line-height: 1.6;
+    }
+
+    /* Contact - phone & email on same row, socials below */
     .contact {
         flex-wrap: wrap;
         gap: 16px;
-        padding: 0 20px 40px;
+        padding: 0 20px;
     }
 
     .contact > div:nth-child(1),
@@ -402,7 +349,7 @@ body {
     }
 }
 
-/* ================= BURGER BUTTON (mobile only) ================= */
+/* ================= BURGER MENU (mobile only) ================= */
 
 .burger {
     display: none;
@@ -415,9 +362,6 @@ body {
     position: fixed;
     top: 22px;
     right: 20px;
-    background: none;
-    border: none;
-    padding: 0;
 }
 
 .burger span {
@@ -426,17 +370,23 @@ body {
     width: 100%;
     background: white;
     border-radius: 2px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: all 0.3s ease;
     transform-origin: center;
 }
 
-/* Burger → X animation */
-.burger.open span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-.burger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
-.burger.open span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+/* Animate burger → X when open */
+.burger.open span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.burger.open span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+}
+.burger.open span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
 
-/* ================= BURGER MENU OVERLAY ================= */
-
+/* Full-screen overlay menu */
 .burger-menu {
     display: none;
     flex-direction: column;
@@ -455,13 +405,16 @@ body {
     display: flex;
 }
 
+.burger-menu div,
 .burger-menu a {
     position: relative;
     color: white;
     text-decoration: none;
+    cursor: pointer;
     padding: 4px 0;
 }
 
+.burger-menu div::after,
 .burger-menu a::after {
     content: "";
     position: absolute;
@@ -470,10 +423,11 @@ body {
     width: 0%;
     height: 2px;
     background: white;
-    transition: width 0.3s ease;
+    transition: all 0.3s ease;
     transform: translateX(-50%);
 }
 
+.burger-menu div:hover::after,
 .burger-menu a:hover::after {
     width: 100%;
 }
@@ -482,19 +436,11 @@ body {
     .burger {
         display: flex;
     }
-}
-/* ================= FOOTER ================= */
 
-.site-footer {
-    text-align: center;
-    padding: 30px 20px;
-    margin-top: 60px;
-    border-top: 1px solid rgba(255, 255, 255, 0.2);
-    color: #E0E0E0;
-    font-size: 0.8rem;
-    letter-spacing: 0.05em;
-}
+    /* Hide the original desktop menu bars on mobile */
+    .menu-container > .menu-bar {
+        display: none;
+    }
 
-.site-footer p {
-    margin: 0;
+    /* Hide logo position adjustment isn't needed — keep it visible */
 }
