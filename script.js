@@ -162,7 +162,7 @@ if (modal) {
     let startY = 0;
     modal.addEventListener("touchstart", e => { startY = e.touches[0].clientY; }, { passive: true });
     modal.addEventListener("touchend",   e => {
-        if (e.changedTouches[0].clientY - startY > 100) closeModal();
+        if (e.changedTouches[0].clientY - startY > 200) closeModal();
     });
 }
 
