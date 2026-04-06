@@ -129,6 +129,11 @@
     "alt": "Psaropoula logo design"
   },
   {
+    "src": "images/skrew.jpg",
+    "category": "packaging",
+    "alt": "Skrew coffee shop cup design"
+  },
+  {
     "src": "images/sunset_02.jpg",
     "category": "prints",
     "alt": "Sunset print design"
@@ -137,6 +142,11 @@
     "src": "images/koen.jpg",
     "category": "prints",
     "alt": "Koen print design"
+  },
+  {
+    "src": "images/divris_fest_2026.jpg",
+    "category": "prints",
+    "alt": "Divri print design for 2026"
   },
   {
     "src": "images/streetfood.jpg",
@@ -154,14 +164,19 @@
     "alt": "Mpaginetas print design"
   },
   {
+    "src": "images/skrew_christmas.jpg",
+    "category": "packaging",
+    "alt": "Skrew coffee shop cup design for Christmas"
+  },
+  {
     "src": "images/entertech.jpg",
     "category": "prints",
     "alt": "Entertech print design"
   },
   {
-    "src": "images/divri.jpg",
+    "src": "images/divris_fest_2025.jpg",
     "category": "prints",
-    "alt": "Divri print design"
+    "alt": "Divris print design for 2025"
   },
   {
     "src": "images/memories.jpg",
@@ -182,5 +197,20 @@
     "src": "images/hens.jpg",
     "category": "prints",
     "alt": "Hens Village print design"
-  }
+  },
+  {
+    "src": "images/altobajo_cups.jpg",
+    "category": "packaging-only",
+    "alt": "Alto y Bajo Coffe Shop cups"
+  },
+   {
+    "src": "images/vento_cups.jpg",
+    "category": "packaging-only",
+    "alt": "Vento Coffe Shop cups"
+  },
+   {
+    "src": "images/the_count_cups.jpg",
+    "category": "packaging-only",
+    "alt": "The Count Coffe Shop cups"
+  }  
 ]
