@@ -22,7 +22,10 @@ const translations = {
     about_p2:       "In 2025, I decided to start my own path, placing more focus on quality, attention to detail, and how each project comes together as a whole — with the aim of creating thoughtful solutions that truly respond to each client's needs.",
     about_p3:       "I mainly work on logo design and printed materials such as business cards, menus, flyers, and posters, as well as more personal projects like wedding and baptism invitations.",
     about_p4:       "I'm drawn to simplicity, functionality, and clean aesthetics. For me, every project is an opportunity to create something meaningful and unique.",
-    footer:         "© 2025 mly.dsg — Maria Limperi. All rights reserved."
+    footer:         "© 2025 mly.dsg — Maria Limperi. All rights reserved.",
+    reviews_label:  "Your Reviews",
+    reviews_cta:    "Leave a review",
+    reviews_submit: "Submit review"
   },
   gr: {
     nav_all:        "Όλα",
@@ -39,7 +42,10 @@ const translations = {
     about_p2:       "Το 2025, αποφάσισα να ξεκινήσω τη δική μου πορεία, δίνοντας μεγαλύτερη έμφαση στην ποιότητα, στη λεπτομέρεια και στο πώς κάθε project αποκτά τη δική του ολοκληρωμένη ταυτότητα — με στόχο να δημιουργώ λύσεις που ανταποκρίνονται πραγματικά στις ανάγκες κάθε πελάτη.",
     about_p3:       "Εργάζομαι κυρίως σε σχεδιασμό λογοτύπων και έντυπα υλικά όπως επαγγελματικές κάρτες, μενού, φυλλάδια και αφίσες, καθώς και σε πιο προσωπικά projects όπως προσκλητήρια γάμου και βάπτισης.",
     about_p4:       "Με εκφράζει η απλότητα, η λειτουργικότητα και η καθαρή αισθητική. Για μένα, κάθε project είναι μια ευκαιρία να δημιουργήσω κάτι ουσιαστικό και μοναδικό.",
-    footer:         "© 2025 mly.dsg — Maria Limperi. Όλα τα δικαιώματα διατηρούνται."
+    footer:         "© 2025 mly.dsg — Maria Limperi. Όλα τα δικαιώματα διατηρούνται.",
+    reviews_label:  "Αξιολογήσεις",
+    reviews_cta:    "Αφήστε μία αξιολόγηση",
+    reviews_submit: "Υποβολή αξιολόγησης"
   }
 };
 
@@ -65,16 +71,26 @@ function applyLanguage(lang) {
     document.documentElement.lang = lang === "gr" ? "el" : "en";
 }
  
-// Updated DOMContentLoaded — replace your existing one with this:
+//Updated DOMContentLoaded
 window.addEventListener("DOMContentLoaded", () => {
     loadPortfolio();
- 
-    // Language toggle button
+    loadReviews();
+    initReviewForm();
+
     document.querySelectorAll("#langToggle").forEach(btn => {
         btn.addEventListener("click", () => {
             applyLanguage(currentLang === "en" ? "gr" : "en");
         });
     });
+
+    applyLanguage(currentLang);
+
+    if (window.location.pathname.includes("about")) {
+        document.querySelectorAll('.menu-bar a[href="about.html"]').forEach(a => {
+            a.classList.add("active");
+        });
+    }
+});
  
     // Apply saved language on page load
     applyLanguage(currentLang);
@@ -83,9 +99,8 @@ window.addEventListener("DOMContentLoaded", () => {
     if (window.location.pathname.includes("about")) {
         document.querySelectorAll('.menu-bar a[href="about.html"]').forEach(a => {
             a.classList.add("active");
-        });
-    }
-});
+        })
+    };
 // ================= FETCH & RENDER IMAGES =================
 
 /**
@@ -293,4 +308,134 @@ function closeBurger() {
     menu.classList.remove("open");
     btn.setAttribute("aria-expanded", "false");
     menu.setAttribute("aria-hidden",  "true");
+}
+
+// ================= REVIEWS =================
+// ================= SUPABASE CONFIG =================
+
+const SUPABASE_URL = "https://fryjgcdjunpqbsspfihz.supabase.co";
+const SUPABASE_KEY = "sb_publishable_JpAGhkX4XE5leelqetCn7Q_W2VUNk75";
+
+// ================= LOAD & DISPLAY REVIEWS =================
+
+function loadReviews() {
+    const grid = document.getElementById("reviewsGrid");
+    if (!grid) return;
+
+    fetch(`${SUPABASE_URL}/rest/v1/reviews?approved=eq.true&order=id.desc`, {
+        headers: {
+            "apikey": SUPABASE_KEY,
+            "Authorization": `Bearer ${SUPABASE_KEY}`
+        }
+    })
+    .then(res => res.json())
+    .then(data => {
+        grid.innerHTML = "";
+
+        if (!data.length) {
+            grid.innerHTML = "<p class='reviews-loading'>No reviews yet.</p>";
+            return;
+        }
+
+        data.forEach(row => {
+            const stars = "★".repeat(row.rating) + "☆".repeat(5 - row.rating);
+            const card = document.createElement("div");
+            card.className = "review-card";
+            card.innerHTML = `
+                <div class="review-quote">"</div>
+                <p class="review-text">${row.review}</p>
+                <div class="review-footer">
+                    <div class="review-avatar">${row.name.charAt(0).toUpperCase()}</div>
+                    <div>
+                        <p class="review-author">${row.name}</p>
+                        <p class="review-stars">${stars}</p>
+                    </div>
+                </div>
+            `;
+            grid.appendChild(card);
+        });
+    })
+    .catch(err => {
+        console.error("Reviews load error:", err);
+        grid.innerHTML = "<p class='reviews-loading'>Could not load reviews.</p>";
+    });
+}
+
+// ================= SUBMIT REVIEW =================
+
+function initReviewForm() {
+    const form = document.getElementById("reviewForm");
+    if (!form) return;
+
+    // Star rating interaction
+    const stars = form.querySelectorAll(".star-input");
+    let selectedRating = 0;
+
+    stars.forEach((star, i) => {
+        star.addEventListener("mouseover", () => {
+            stars.forEach((s, j) => s.classList.toggle("hovered", j <= i));
+        });
+        star.addEventListener("mouseout", () => {
+            stars.forEach((s, j) => s.classList.toggle("hovered", false));
+            stars.forEach((s, j) => s.classList.toggle("selected", j < selectedRating));
+        });
+        star.addEventListener("click", () => {
+            selectedRating = i + 1;
+            stars.forEach((s, j) => s.classList.toggle("selected", j < selectedRating));
+            document.getElementById("ratingValue").value = selectedRating;
+        });
+    });
+
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+
+        const name   = document.getElementById("reviewName").value.trim();
+        const review = document.getElementById("reviewText").value.trim();
+        const rating = parseInt(document.getElementById("ratingValue").value);
+        const btn    = document.getElementById("submitReview");
+
+        if (!name || !review || !rating) {
+            showFormMessage("Please fill in all fields and select a rating.", "error");
+            return;
+        }
+
+        btn.disabled = true;
+        btn.textContent = "Sending...";
+
+        fetch(`${SUPABASE_URL}/rest/v1/reviews`, {
+            method: "POST",
+            headers: {
+                "apikey": SUPABASE_KEY,
+                "Authorization": `Bearer ${SUPABASE_KEY}`,
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            },
+            body: JSON.stringify({ name, review, rating, approved: false })
+        })
+        .then(res => {
+            if (res.ok) {
+                showFormMessage("Thank you! Your review has been submitted and will appear after approval.", "success");
+                form.reset();
+                selectedRating = 0;
+                stars.forEach(s => s.classList.remove("selected"));
+                document.getElementById("ratingValue").value = 0;
+            } else {
+                throw new Error("Submission failed");
+            }
+        })
+        .catch(() => {
+            showFormMessage("Something went wrong. Please try again.", "error");
+        })
+        .finally(() => {
+            btn.disabled = false;
+            btn.textContent = "Submit review";
+        });
+    });
+}
+
+function showFormMessage(msg, type) {
+    const el = document.getElementById("formMessage");
+    if (!el) return;
+    el.textContent = msg;
+    el.className = "form-message " + type;
 }

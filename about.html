@@ -15,7 +15,6 @@
     <!-- ===== NAVIGATION ===== -->
     <header class="menu-container" role="banner">
 
-        <!-- Burger button (mobile only) -->
         <button
             class="burger"
             id="burgerBtn"
@@ -29,7 +28,6 @@
             <span></span>
         </button>
 
-        <!-- Mobile full-screen menu -->
         <nav class="burger-menu" id="burgerMenu" aria-label="Mobile navigation" aria-hidden="true">
             <a href="index.html?category=all"       data-i18n="nav_all">All</a>
             <a href="index.html?category=branding"  data-i18n="nav_branding">Branding</a>
@@ -39,7 +37,6 @@
             <a href="about.html"                    data-i18n="nav_about">About / Contact</a>
         </nav>
 
-        <!-- Desktop left nav -->
         <nav class="menu-bar" aria-label="Portfolio categories">
             <a href="index.html?category=all"       data-i18n="nav_all">All</a>
             <a href="index.html?category=branding"  data-i18n="nav_branding">Branding</a>
@@ -48,12 +45,10 @@
             <a href="index.html?category=packaging" data-i18n="nav_packaging">Packaging</a>
         </nav>
 
-        <!-- Logo (centred) -->
         <a href="index.html" class="logo-link">
             <img class="logo-img" src="images/white_black-logo.png" alt="Maria Limperi — Graphic Designer logo" width="120" height="60">
         </a>
 
-        <!-- Desktop right nav -->
         <nav class="menu-bar" id="about" aria-label="Secondary navigation">
             <a href="about.html" class="active" data-i18n="nav_about">About / Contact</a>
             <a href="https://www.instagram.com/maria.lymperi" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
@@ -73,7 +68,7 @@
     <!-- ===== ABOUT ===== -->
     <main>
         <section class="about-section" id="about-section" aria-label="About Maria Limperi Graphic Designer">
-            <h1 data-i18n="name">MARIA LIMPERI</h1>
+            <h1>MARIA LIMPERI</h1>
             <h2 data-i18n="about_h2">graphic designer</h2>
             <div class="about-container">
                 <p data-i18n="about_p1">
@@ -113,6 +108,41 @@
                 <a href="https://www.instagram.com/maria.lymperi" target="_blank" rel="noopener noreferrer">mly.dsg</a>
             </div>
         </section>
+
+        <!-- ===== REVIEWS ===== -->
+        <section class="reviews-section" aria-label="Client reviews">
+            <p class="reviews-label" data-i18n="reviews_label">Your Reviews</p>
+            <h3 class="reviews-title" data-i18n="reviews_title">What clients say</h3>
+        
+            <!-- Review cards -->
+            <div class="reviews-grid" id="reviewsGrid">
+                <p class="reviews-loading" data-i18n="reviews_loading">Loading reviews...</p>
+            </div>
+        
+            <!-- Review form -->
+            <div class="review-form-wrapper">
+                <h4 class="review-form-title" data-i18n="reviews_cta">Leave a review</h4>
+                <form id="reviewForm" novalidate>
+                    <div class="form-row">
+                        <input type="text" id="reviewName" placeholder="Your name" required />
+                    </div>
+                    <div class="form-row">
+                        <textarea id="reviewText" rows="4" placeholder="Your review..." required></textarea>
+                    </div>
+                    <div class="form-row star-row">
+                        <span class="star-input">★</span>
+                        <span class="star-input">★</span>
+                        <span class="star-input">★</span>
+                        <span class="star-input">★</span>
+                        <span class="star-input">★</span>
+                        <input type="hidden" id="ratingValue" value="0">
+                    </div>
+                    <button type="submit" id="submitReview" data-i18n="reviews_submit">Submit review</button>
+                    <p id="formMessage" class="form-message"></p>
+                </form>
+            </div>
+        </section>
+
     </main>
 
     <footer class="site-footer">
